@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jskvett.com.br/sitemap.xml

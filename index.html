@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSKvet — Consultório Veterinário e Reabilitação Animal</title>
+  <meta name="description" content="JSKvet — Clínica veterinária especializada em clínica geral, dermatologia, fisiatria e medicina integrativa. Cuidado completo, diagnóstico preciso e compromisso com a saúde animal.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="JSKvet">
+  <meta name="theme-color" content="#6B3322">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://jskvett.com.br/">
+  <meta property="og:title"       content="JSKvet — Consultório Veterinário e Reabilitação Animal">
+  <meta property="og:description" content="Clínica veterinária especializada em clínica geral, dermatologia, fisiatria e medicina integrativa. Cuidado completo, diagnóstico preciso.">
+  <meta property="og:image"       content="images/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="JSKvet — Consultório Veterinário e Reabilitação Animal">
+  <meta name="twitter:description" content="Clínica veterinária especializada em clínica geral, dermatologia, fisiatria e medicina integrativa.">
+  <meta name="twitter:image"       content="images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon"      href="images/favicon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --marrom:        #6B3322;
+      --marrom-escuro: #4E2218;
+      --marrom-claro:  #8C4A36;
+      --verde:         #4A6B2A;
+      --verde-escuro:  #364E1E;
+      --verde-claro:   #5E8637;
+      --branco:        #FFFFFF;
+      --creme:         #FBF8F5;
+      --creme-2:       #F2EBE4;
+      --texto:         #2C1A13;
+      --texto-leve:    #7A5B50;
+      --cinza-borda:   #E8DDD7;
+      --ff-titulo:     'Playfair Display', serif;
+      --ff-corpo:      'Nunito', sans-serif;
+      --header-h:      80px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-corpo);
+      color: var(--texto);
+      background: var(--creme);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    h1, h2, h3 { font-family: var(--ff-titulo); line-height: 1.25; }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section { padding: 100px 0; }
+
+    /* ── BARRA DE PROGRESSO ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--marrom), var(--verde));
+      z-index: 2000;
+      transition: width 0.08s linear;
+    }
+
+    /* ── SECTION TAG ── */
+    .section-tag {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 14px;
+      color: var(--verde);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: var(--ff-corpo);
+      position: relative;
+      padding: 0 22px;
+    }
+    .section-tag::before,
+    .section-tag::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30px; height: 1px;
+      background: var(--verde);
+    }
+    .section-tag::before { right: 100%; transform: translateX(14px); }
+    .section-tag::after  { left:  100%; transform: translateX(-14px); }
+
+    .section-tag.tag-branco { color: rgba(255,255,255,0.85); }
+    .section-tag.tag-branco::before,
+    .section-tag.tag-branco::after { background: rgba(255,255,255,0.6); }
+
+    .section-tag.tag-marrom { color: var(--marrom); }
+    .section-tag.tag-marrom::before,
+    .section-tag.tag-marrom::after { background: var(--marrom); }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--texto-leve);
+      max-width: 600px;
+      margin: 0 auto 64px;
+      font-size: 1.02rem;
+    }
+
+    /* ── BOTÕES ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.82rem 1.9rem;
+      border-radius: 4px;
+      font-family: var(--ff-corpo);
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.2s;
+      border: 2px solid transparent;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-marrom {
+      background: var(--marrom);
+      color: var(--branco);
+      border-color: var(--marrom);
+    }
+    .btn-marrom:hover { background: var(--marrom-escuro); border-color: var(--marrom-escuro); box-shadow: 0 6px 20px rgba(107,51,34,0.3); }
+
+    .btn-verde {
+      background: var(--verde);
+      color: var(--branco);
+      border-color: var(--verde);
+    }
+    .btn-verde:hover { background: var(--verde-escuro); border-color: var(--verde-escuro); box-shadow: 0 6px 20px rgba(74,107,42,0.3); }
+
+    .btn-outline-branco {
+      background: rgba(255,255,255,0.12);
+      color: var(--branco);
+      border-color: rgba(255,255,255,0.6);
+    }
+    .btn-outline-branco:hover { background: var(--branco); color: var(--marrom); border-color: var(--branco); }
+
+    .btn-outline-verde {
+      background: transparent;
+      color: var(--verde);
+      border-color: var(--verde);
+    }
+    .btn-outline-verde:hover { background: var(--verde); color: var(--branco); }
+
+    /* ── HEADER ── */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(251,248,245,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      height: var(--header-h);
+      border-bottom: 1px solid var(--cinza-borda);
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    #header.scrolled { box-shadow: 0 4px 24px rgba(107,51,34,0.1); border-color: transparent; }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo-wrap img {
+      height: 60px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.8rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--texto);
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--verde);
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--verde); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--verde) !important;
+      color: var(--branco) !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--verde-escuro) !important; color: var(--branco) !important; }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 3px;
+      background: var(--texto);
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* NAV MOBILE */
+    #navMenu {
+      position: fixed;
+      top: var(--header-h); left: 0; right: 0;
+      background: var(--creme);
+      z-index: 999;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, box-shadow 0.3s;
+      border-bottom: 1px solid var(--cinza-borda);
+    }
+    #navMenu.open { max-height: 420px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    #navMenu ul { list-style: none; padding: 1rem 1.5rem 1.5rem; }
+    #navMenu ul li a {
+      display: block;
+      padding: 0.85rem 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--texto);
+      border-bottom: 1px solid var(--cinza-borda);
+      transition: color 0.2s, padding-left 0.2s;
+    }
+    #navMenu ul li:last-child a { border-bottom: none; }
+    #navMenu ul li a:hover { color: var(--verde); padding-left: 0.5rem; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding-top: var(--header-h);
+      background:
+        linear-gradient(135deg, rgba(78,34,24,0.88) 0%, rgba(54,78,30,0.72) 100%),
+        url('images/bg-hero.jpg') center / cover no-repeat;
+      background-attachment: scroll, fixed;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-deco {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 5% 20%, rgba(107,51,34,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 90% 80%, rgba(74,107,42,0.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Canvas partículas */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      color: var(--branco);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+    .hero-text h1 span { color: #A8D06A; }
+
+    .hero-text h2 {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+      font-family: var(--ff-corpo);
+      line-height: 1.8;
+      margin-bottom: 14px;
+      max-width: 500px;
+    }
+
+    .hero-slogan {
+      font-family: var(--ff-titulo);
+      font-size: 1rem;
+      color: #A8D06A;
+      font-style: italic;
+      margin-bottom: 36px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 28px;
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 0 20px 0 0;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .hero-stat:last-child { border-right: none; padding-right: 0; padding-left: 20px; }
+    .hero-stat:first-child { padding-left: 0; }
+    .hero-stat strong {
+      display: block;
+      font-family: var(--ff-titulo);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #A8D06A;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-stat span { font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: 0.3px; }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-card {
+      width: 100%;
+      max-width: 460px;
+      animation: floatCard 5s ease-in-out infinite;
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-14px); }
+    }
+
+    .hero-card-inner {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 48px 36px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .hero-card-logo {
+      width: 180px;
+      margin: 0 auto 24px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+    }
+
+    .hero-card-title {
+      font-family: var(--ff-titulo);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--branco);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-sub {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #A8D06A;
+      margin-bottom: 28px;
+    }
+
+    .hero-card-divider {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, var(--marrom-claro), var(--verde-claro));
+      margin: 0 auto 24px;
+      border-radius: 2px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .hero-tag {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.85);
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-strip {
+      background: var(--verde);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marqueeScroll 30s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      white-space: nowrap;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0 32px;
+    }
+    .marquee-sep { color: rgba(255,255,255,0.4); margin-left: 32px; }
+
+    /* ── SOBRE ── */
+    #sobre {
+      background:
+        linear-gradient(rgba(251,248,245,0.94), rgba(251,248,245,0.94)),
+        url('images/bg-sobre.jpg') center / cover no-repeat;
+      background-attachment: scroll, fixed;
+    }
+
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .sobre-visual { position: relative; }
+
+    .sobre-box {
+      background: var(--marrom);
+      padding: 52px 40px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sobre-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at bottom left, rgba(74,107,42,0.25), transparent 60%);
+    }
+    .sobre-box-inner { position: relative; z-index: 1; text-align: center; }
+
+    .sobre-icon {
+      font-size: 2.8rem;
+      color: #A8D06A;
+      margin-bottom: 18px;
+    }
+    .sobre-box-inner .brand-nome {
+      font-family: var(--ff-titulo);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--branco);
+      margin-bottom: 4px;
+    }
+    .sobre-box-inner .brand-sub {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #A8D06A;
+      margin-bottom: 24px;
+    }
+    .sobre-box-inner p {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.93rem;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .sobre-badge {
+      position: absolute;
+      bottom: -18px; right: -18px;
+      width: 88px; height: 88px;
+      background: var(--verde);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid var(--creme);
+    }
+    .sobre-badge strong { font-family: var(--ff-titulo); font-size: 1.7rem; font-weight: 700; color: var(--branco); line-height: 1; }
+    .sobre-badge span   { font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 1px; text-align: center; }
+
+    .sobre-text .section-tag   { margin: 0 0 14px; }
+    .sobre-text .section-title { text-align: left; color: var(--texto); margin-bottom: 20px; }
+    .sobre-text p {
+      color: var(--texto-leve);
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+      line-height: 1.85;
+    }
+
+    .sobre-diferenciais {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0 32px;
+    }
+    .sobre-dif {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--texto);
+    }
+    .sobre-dif i { color: var(--verde); font-size: 0.9rem; }
+
+    /* ── MVV ── */
+    #valores {
+      background:
+        linear-gradient(rgba(54,78,30,0.93), rgba(78,34,24,0.93)),
+        url('images/bg-servicos.jpg') center / cover no-repeat;
+      background-attachment: scroll, fixed;
+    }
+
+    .mvv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .mvv-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 40px 28px;
+      text-align: center;
+      transition: background 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .mvv-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 3px;
+      background: #A8D06A;
+      border-radius: 0 0 4px 4px;
+    }
+    .mvv-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+
+    .mvv-num {
+      font-family: var(--ff-titulo);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(168,208,106,0.25);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .mvv-icon {
+      font-size: 2rem;
+      color: #A8D06A;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .mvv-card h3 {
+      font-family: var(--ff-titulo);
+      font-size: 1.3rem;
+      color: var(--branco);
+      margin-bottom: 12px;
+    }
+    .mvv-card p {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    /* ── SERVIÇOS ── */
+    #servicos {
+      background: var(--creme);
+    }
+
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .servico-card {
+      background: var(--branco);
+      border: 1px solid var(--cinza-borda);
+      border-radius: 8px;
+      padding: 36px 28px;
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .servico-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--marrom), var(--verde));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .servico-card:hover {
+      box-shadow: 0 12px 40px rgba(107,51,34,0.1);
+      transform: translateY(-4px);
+      border-color: rgba(107,51,34,0.2);
+    }
+    .servico-card:hover::after { transform: scaleX(1); }
+
+    .servico-icon {
+      width: 60px; height: 60px;
+      border-radius: 12px;
+      background: var(--creme-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: var(--marrom);
+      transition: background 0.3s, color 0.3s;
+    }
+    .servico-card:hover .servico-icon { background: var(--marrom); color: var(--branco); }
+
+    .servico-card h3 {
+      font-size: 1.2rem;
+      color: var(--texto);
+      margin-bottom: 10px;
+    }
+    .servico-card p {
+      color: var(--texto-leve);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    /* ── PRODUTOS ── */
+    #produtos {
+      background: var(--creme-2);
+    }
+
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .produto-card {
+      background: var(--branco);
+      border: 1px solid var(--cinza-borda);
+      border-radius: 8px;
+      padding: 36px 24px;
+      text-align: center;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .produto-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 36px; height: 3px;
+      background: var(--verde);
+      border-radius: 0 0 4px 4px;
+    }
+    .produto-card:hover {
+      box-shadow: 0 12px 40px rgba(74,107,42,0.12);
+      transform: translateY(-4px);
+    }
+
+    .produto-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--creme-2), #e8f0e0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 1.6rem;
+      color: var(--verde);
+    }
+    .produto-card h3 {
+      font-size: 1.15rem;
+      color: var(--texto);
+      margin-bottom: 10px;
+    }
+    .produto-card p {
+      color: var(--texto-leve);
+      font-size: 0.86rem;
+      line-height: 1.75;
+    }
+
+    /* ── DEPOIMENTOS ── */
+    #depoimentos {
+      background: var(--creme);
+    }
+
+    .depo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .depo-card {
+      background: var(--branco);
+      border: 1px solid var(--cinza-borda);
+      border-radius: 8px;
+      padding: 32px 28px;
+      position: relative;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .depo-card:hover { box-shadow: 0 8px 32px rgba(107,51,34,0.08); transform: translateY(-3px); }
+
+    .depo-quote {
+      font-family: var(--ff-titulo);
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--creme-2);
+      position: absolute;
+      top: 16px; right: 24px;
+    }
+    .depo-stars { color: #F5A623; font-size: 0.85rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .depo-text {
+      color: var(--texto-leve);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .depo-autor { display: flex; align-items: center; gap: 12px; }
+    .depo-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--marrom), var(--verde));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--branco);
+      flex-shrink: 0;
+    }
+    .depo-info strong { display: block; font-size: 0.9rem; color: var(--texto); font-weight: 700; }
+    .depo-info span   { font-size: 0.78rem; color: var(--texto-leve); }
+
+    /* ── CONTATO ── */
+    #contato {
+      background:
+        linear-gradient(rgba(251,248,245,0.95), rgba(251,248,245,0.95)),
+        url('images/bg-contato.jpg') center / cover no-repeat;
+      background-attachment: scroll, fixed;
+    }
+
+    .contato-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contato-info h3 {
+      font-size: 1.5rem;
+      color: var(--texto);
+      margin-bottom: 28px;
+    }
+
+    .contato-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .contato-item-icon {
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      background: var(--creme-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--marrom);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contato-item-txt strong { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-leve); margin-bottom: 3px; }
+    .contato-item-txt span, .contato-item-txt a { font-size: 0.95rem; color: var(--texto); font-weight: 600; }
+    .contato-item-txt a:hover { color: var(--verde); }
+
+    .contato-social { display: flex; gap: 10px; margin-top: 28px; }
+    .social-btn {
+      width: 42px; height: 42px;
+      border-radius: 8px;
+      background: var(--creme-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      color: var(--texto);
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+    }
+    .social-btn:hover { transform: translateY(-3px); }
+    .social-btn.instagram:hover { background: #E1306C; color: var(--branco); }
+    .social-btn.whatsapp:hover  { background: #25D366; color: var(--branco); }
+
+    /* FORM */
+    .contato-form-box {
+      background: var(--branco);
+      border: 1px solid var(--cinza-borda);
+      border-radius: 8px;
+      padding: 40px 36px;
+    }
+    .contato-form-box h3 {
+      font-size: 1.4rem;
+      color: var(--texto);
+      margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--texto-leve);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.72rem 1rem;
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 4px;
+      font-family: var(--ff-corpo);
+      font-size: 0.92rem;
+      color: var(--texto);
+      background: var(--creme);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--verde);
+      box-shadow: 0 0 0 3px rgba(74,107,42,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .btn-form { width: 100%; justify-content: center; margin-top: 6px; }
+
+    /* MAPA */
+    .mapa-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      height: 300px;
+      margin-top: 32px;
+      border: 1px solid var(--cinza-borda);
+    }
+    .mapa-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--texto);
+      padding: 64px 0 0;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand img { height: 72px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-brand p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      max-width: 280px;
+    }
+    .footer-brand .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .footer-brand .footer-social a {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-brand .footer-social a:hover { background: var(--verde); color: var(--branco); }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      transition: color 0.2s, padding-left 0.2s;
+    }
+    .footer-col ul li a:hover { color: #A8D06A; padding-left: 4px; }
+
+    .footer-horario {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.85rem;
+      line-height: 1.9;
+    }
+    .footer-horario strong { color: rgba(255,255,255,0.85); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+    .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+    .footer-bottom span { color: rgba(255,255,255,0.25); font-size: 0.75rem; }
+
+    /* ── FLOATING BUTTONS ── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      color: var(--branco);
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      z-index: 900;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .whatsapp-float:hover { background: #1ebe5c; transform: scale(1.08); }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 28px; left: 28px;
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      background: var(--marrom);
+      color: var(--branco);
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(107,51,34,0.3);
+      z-index: 900;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .scroll-top:hover { background: var(--marrom-escuro); transform: translateY(-2px); }
+    .scroll-top.visible { display: flex; }
+
+    /* ── ANIMAÇÕES ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .fade-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-left.visible { opacity: 1; transform: translateX(0); }
+
+    .fade-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-right.visible { opacity: 1; transform: translateX(0); }
+
+    .fade-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* Stagger */
+    .servicos-grid .servico-card:nth-child(1) { transition-delay: 0.05s; }
+    .servicos-grid .servico-card:nth-child(2) { transition-delay: 0.15s; }
+    .servicos-grid .servico-card:nth-child(3) { transition-delay: 0.25s; }
+    .servicos-grid .servico-card:nth-child(4) { transition-delay: 0.35s; }
+    .produtos-grid .produto-card:nth-child(1) { transition-delay: 0.05s; }
+    .produtos-grid .produto-card:nth-child(2) { transition-delay: 0.18s; }
+    .produtos-grid .produto-card:nth-child(3) { transition-delay: 0.31s; }
+    .depo-grid .depo-card:nth-child(1) { transition-delay: 0.05s; }
+    .depo-grid .depo-card:nth-child(2) { transition-delay: 0.18s; }
+    .depo-grid .depo-card:nth-child(3) { transition-delay: 0.31s; }
+
+    /* Bounce ícone serviço */
+    @keyframes iconBounce {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.35); }
+      65%  { transform: scale(0.88); }
+      100% { transform: scale(1); }
+    }
+    .servico-card:hover .servico-icon { animation: iconBounce 0.5s ease forwards; }
+
+    /* ── RESPONSIVIDADE ── */
+    @media (min-width: 1800px) { .container { max-width: 1500px; } }
+
+    @media (min-width: 1440px) and (max-width: 1799px) { .container { max-width: 1300px; } }
+
+    @media (max-width: 1280px) {
+      .sobre-grid { gap: 48px; }
+      .hero-inner { gap: 48px; }
+    }
+
+    @media (max-width: 1024px) {
+      #hero, #sobre, #valores, #contato {
+        background-attachment: scroll, scroll;
+      }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-text h2 { max-width: 100%; }
+      .hero-card { max-width: 400px; margin: 0 auto; }
+
+      .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+      .sobre-visual { max-width: 420px; margin: 0 auto; }
+      .sobre-text .section-tag { margin: 0 auto 14px; }
+      .sobre-text .section-title { text-align: center; }
+      .sobre-text p { text-align: center; }
+      .sobre-diferenciais { justify-content: center; }
+      .sobre-text .btn { display: block; width: fit-content; margin: 0 auto; }
+
+      .mvv-grid { grid-template-columns: 1fr; gap: 16px; }
+      .servicos-grid { grid-template-columns: 1fr; gap: 16px; }
+      .produtos-grid { grid-template-columns: repeat(2, 1fr); }
+      .depo-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+      .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+
+      .section-desc { margin-bottom: 48px; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+
+      .hero-stat strong { font-size: 1.8rem; }
+      .hero-stat { padding: 0 16px 0 0; }
+      .hero-stat:last-child { padding-left: 16px; }
+
+      .sobre-diferenciais { grid-template-columns: 1fr; }
+      .sobre-badge { width: 76px; height: 76px; bottom: -14px; right: -14px; }
+
+      .produtos-grid { grid-template-columns: repeat(2, 1fr); }
+      .depo-grid { grid-template-columns: 1fr; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .contato-form-box { padding: 32px 24px; }
+    }
+
+    @media (max-width: 599px) {
+      section { padding: 60px 0; }
+      .container { padding: 0 1.25rem; }
+
+      .hero-stats { flex-direction: column; gap: 16px; border-top: none; padding-top: 24px; }
+      .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 0 14px 0 !important; text-align: center; }
+      .hero-stat:last-child { border-bottom: none; padding-bottom: 0 !important; }
+      .hero-card { max-width: 100%; }
+      .hero-card-inner { padding: 32px 24px; }
+
+      .sobre-box { padding: 40px 24px; }
+      .sobre-badge { display: none; }
+
+      .servicos-grid { gap: 12px; }
+      .produtos-grid { grid-template-columns: 1fr; }
+
+      .section-desc { margin-bottom: 36px; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 52px 0; }
+      .container { padding: 0 1rem; }
+
+      .hero-btns { flex-direction: column; align-items: stretch; }
+      .hero-btns .btn { width: 100%; justify-content: center; }
+
+      .logo-wrap img { height: 50px; }
+
+      .mvv-grid { gap: 12px; }
+      .servico-card { padding: 28px 20px; }
+      .produto-card { padding: 28px 18px; }
+      .depo-card { padding: 26px 20px; }
+
+      .contato-form-box { padding: 26px 18px; }
+
+      .whatsapp-float { bottom: 20px; right: 20px; width: 52px; height: 52px; font-size: 1.45rem; }
+      .scroll-top { bottom: 20px; left: 20px; }
+    }
+
+    @media (max-width: 360px) {
+      .container { padding: 0 0.875rem; }
+      section { padding: 44px 0; }
+      .logo-wrap img { height: 44px; }
+      .hero-card-inner { padding: 28px 18px; }
+      .sobre-box { padding: 32px 18px; }
+      .mvv-card { padding: 28px 18px; }
+    }
+
+    @media (max-width: 320px) {
+      .container { padding: 0 0.75rem; }
+      .hero-btns .btn { font-size: 0.85rem; padding: 0.65rem 1.1rem; }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      #hero { min-height: auto; padding: calc(var(--header-h) + 36px) 0 36px; }
+      .hero-stats { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up, .fade-left, .fade-right, .fade-scale { transition: none; opacity: 1; transform: none; }
+      .marquee-track, .hero-card { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de progresso -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ══════ HEADER ══════ -->
+  <header id="header" role="banner">
+    <div class="container header-inner">
+      <a href="#hero" class="logo-wrap" aria-label="JSKvet — página inicial">
+        <img src="images/logo.png" alt="Logo JSKvet — Consultório Veterinário e Reabilitação Animal">
+      </a>
+
+      <nav role="navigation" aria-label="Menu principal">
+        <ul class="nav-links">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#valores">Missão & Valores</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#contato" class="nav-cta">Agendar consulta</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" id="hamburgerBtn"
+              aria-label="Abrir menu de navegação"
+              aria-expanded="false"
+              aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- NAV MOBILE -->
+  <nav id="navMenu" aria-label="Menu mobile" role="navigation">
+    <ul>
+      <li><a href="#sobre"        class="nav-mob-link">Sobre</a></li>
+      <li><a href="#valores"      class="nav-mob-link">Missão &amp; Valores</a></li>
+      <li><a href="#servicos"     class="nav-mob-link">Serviços</a></li>
+      <li><a href="#produtos"     class="nav-mob-link">Produtos</a></li>
+      <li><a href="#depoimentos"  class="nav-mob-link">Depoimentos</a></li>
+      <li><a href="#contato"      class="nav-mob-link">
+        <i class="fa-brands fa-whatsapp"></i> Agendar consulta
+      </a></li>
+    </ul>
+  </nav>
+
+  <!-- ══════ HERO ══════ -->
+  <section id="hero" aria-label="Apresentação">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-deco" aria-hidden="true"></div>
+    <div class="container hero-inner">
+
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          Cuidado <span style="margin:0 6px;opacity:0.4">·</span> Diagnóstico <span style="margin:0 6px;opacity:0.4">·</span> Reabilitação
+        </div>
+        <h1>JSK<span>vet</span></h1>
+        <h2>Consultório veterinário especializado em clínica geral, dermatologia, fisiatria e medicina integrativa — para que seu animal tenha a melhor qualidade de vida.</h2>
+        <p class="hero-slogan">"JSKvet – Cuidado completo, diagnóstico preciso e compromisso com a saúde animal"</p>
+        <div class="hero-btns">
+          <a href="https://wa.me/5544999345721" target="_blank" rel="noopener noreferrer" class="btn btn-verde">
+            <i class="fa-brands fa-whatsapp"></i> Agendar pelo WhatsApp
+          </a>
+          <a href="#servicos" class="btn btn-outline-branco">
+            Ver serviços <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong class="counter" data-target="4" data-suffix="+">4+</strong>
+            <span>Especialidades</span>
+          </div>
+          <div class="hero-stat">
+            <strong class="counter" data-target="100" data-suffix="%">100%</strong>
+            <span>Dedicação</span>
+          </div>
+          <div class="hero-stat">
+            <strong><i class="fa-solid fa-heart" style="font-size:1.5rem;vertical-align:middle"></i></strong>
+            <span>Saúde animal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-inner">
+            <img class="hero-card-logo" src="images/logo.png" alt="JSKvet">
+            <div class="hero-card-title">Consultório Veterinário</div>
+            <div class="hero-card-sub">Clínica &amp; Reabilitação Animal</div>
+            <div class="hero-card-divider"></div>
+            <div class="hero-tags">
+              <span class="hero-tag">Clínica Geral</span>
+              <span class="hero-tag">Dermatologia</span>
+              <span class="hero-tag">Fisiatria</span>
+              <span class="hero-tag">Med. Integrativa</span>
+              <span class="hero-tag">Reabilitação</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Clínica Geral <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Dermatologia Veterinária <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Fisiatria <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Medicina Integrativa <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Reabilitação Animal <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Medicina Preventiva <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Diagnóstico Preciso <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Clínica Geral <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Dermatologia Veterinária <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Fisiatria <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Medicina Integrativa <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Reabilitação Animal <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Medicina Preventiva <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Diagnóstico Preciso <span class="marquee-sep">✦</span></span>
+    </div>
+  </div>
+
+  <!-- ══════ SOBRE ══════ -->
+  <section id="sobre" aria-labelledby="sobre-titulo">
+    <div class="container">
+      <div class="sobre-grid">
+
+        <div class="sobre-visual fade-left">
+          <div class="sobre-box">
+            <div class="sobre-box-inner">
+              <div class="sobre-icon"><i class="fa-solid fa-paw"></i></div>
+              <div class="brand-nome">JSKvet</div>
+              <div class="brand-sub">Clínica &amp; Reabilitação Animal</div>
+              <p>"Prestar atendimento veterinário de excelência, promovendo saúde, bem-estar e qualidade de vida aos animais."</p>
+            </div>
+            <div class="sobre-badge">
+              <strong><i class="fa-solid fa-star" style="font-size:1.1rem"></i></strong>
+              <span>Qualidade</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sobre-text fade-right">
+          <span class="section-tag tag-marrom">Nossa história</span>
+          <h2 id="sobre-titulo" class="section-title">Uma clínica nascida da paixão pelo cuidado animal</h2>
+          <p>A JSKvet surgiu a partir de uma trajetória construída com foco no atendimento veterinário de qualidade e no cuidado individualizado dos pacientes. Com a evolução profissional e o aprimoramento técnico, iniciou-se uma nova fase marcada pela atuação independente.</p>
+          <p>Estruturada para oferecer atendimento completo, organizado e focado nas necessidades de cada animal, a clínica atua na clínica geral aliada à especialização em <strong>fisiatria, dermatologia</strong> e <strong>medicina integrativa e preventiva</strong> — permitindo uma abordagem ampla que considera a saúde como um todo.</p>
+
+          <div class="sobre-diferenciais">
+            <div class="sobre-dif"><i class="fa-solid fa-check-circle"></i> Diagnóstico preciso</div>
+            <div class="sobre-dif"><i class="fa-solid fa-check-circle"></i> Tratamentos eficazes</div>
+            <div class="sobre-dif"><i class="fa-solid fa-check-circle"></i> Acompanhamento contínuo</div>
+            <div class="sobre-dif"><i class="fa-solid fa-check-circle"></i> Orientação ao tutor</div>
+            <div class="sobre-dif"><i class="fa-solid fa-check-circle"></i> Medicina preventiva</div>
+            <div class="sobre-dif"><i class="fa-solid fa-check-circle"></i> Ética profissional</div>
+          </div>
+
+          <a href="https://wa.me/5544999345721" target="_blank" rel="noopener noreferrer" class="btn btn-marrom">
+            <i class="fa-brands fa-whatsapp"></i> Agendar uma consulta
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ MISSÃO VISÃO VALORES ══════ -->
+  <section id="valores" aria-labelledby="valores-titulo">
+    <div class="container">
+      <span class="section-tag tag-branco fade-up">Nossa essência</span>
+      <h2 id="valores-titulo" class="section-title fade-up" style="color:var(--branco)">Missão, visão e valores</h2>
+      <p class="section-desc fade-up" style="color:rgba(255,255,255,0.65)">Os princípios que orientam cada atendimento, cada diagnóstico e cada decisão da JSKvet.</p>
+
+      <div class="mvv-grid">
+        <div class="mvv-card fade-scale">
+          <div class="mvv-num">01</div>
+          <i class="mvv-icon fa-solid fa-bullseye"></i>
+          <h3>Missão</h3>
+          <p>Prestar atendimento veterinário de excelência, promovendo saúde, bem-estar e qualidade de vida aos animais, por meio de diagnóstico preciso, tratamentos eficazes e orientação responsável aos tutores.</p>
+        </div>
+        <div class="mvv-card fade-scale">
+          <div class="mvv-num">02</div>
+          <i class="mvv-icon fa-solid fa-eye"></i>
+          <h3>Visão</h3>
+          <p>Ser referência em medicina veterinária na região, reconhecida pela qualidade técnica, especialização em fisiatria, dermatologia e medicina integrativa, ética profissional e compromisso com a saúde animal.</p>
+        </div>
+        <div class="mvv-card fade-scale">
+          <div class="mvv-num">03</div>
+          <i class="mvv-icon fa-solid fa-star"></i>
+          <h3>Valores</h3>
+          <p>Qualidade · Ética · Cuidado · Inovação · Confiança · Respeito. Estes princípios guiam cada atendimento e cada relação com tutores e pacientes da JSKvet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ SERVIÇOS ══════ -->
+  <section id="servicos" aria-labelledby="servicos-titulo">
+    <div class="container">
+      <span class="section-tag fade-up">O que oferecemos</span>
+      <h2 id="servicos-titulo" class="section-title fade-up">Especialidades e serviços</h2>
+      <p class="section-desc fade-up">Atendimento completo com abordagem individualizada, aliando clínica geral às especialidades para cuidar da saúde do seu animal em cada fase da vida.</p>
+
+      <div class="servicos-grid">
+        <div class="servico-card fade-up">
+          <div class="servico-icon"><i class="fa-solid fa-stethoscope"></i></div>
+          <h3>Clínica geral</h3>
+          <p>Atendimento completo para avaliação, diagnóstico e acompanhamento das principais condições clínicas, com abordagem individualizada para cada paciente.</p>
+        </div>
+        <div class="servico-card fade-up">
+          <div class="servico-icon"><i class="fa-solid fa-microscope"></i></div>
+          <h3>Dermatologia veterinária</h3>
+          <p>Investigação e tratamento de doenças de pele, incluindo quadros alérgicos, infecciosos e crônicos, com protocolos terapêuticos personalizados.</p>
+        </div>
+        <div class="servico-card fade-up">
+          <div class="servico-icon"><i class="fa-solid fa-person-walking"></i></div>
+          <h3>Fisiatria veterinária</h3>
+          <p>Reabilitação funcional, controle da dor e melhora da qualidade de vida de pacientes com alterações musculoesqueléticas e neurológicas.</p>
+        </div>
+        <div class="servico-card fade-up">
+          <div class="servico-icon"><i class="fa-solid fa-leaf"></i></div>
+          <h3>Medicina integrativa e preventiva</h3>
+          <p>Abordagem focada na prevenção de doenças e no equilíbrio do organismo, visando saúde a longo prazo com técnicas complementares e preventivas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ PRODUTOS ══════ -->
+  <section id="produtos" aria-labelledby="produtos-titulo">
+    <div class="container">
+      <span class="section-tag fade-up">Linha de produtos</span>
+      <h2 id="produtos-titulo" class="section-title fade-up">Produtos com orientação veterinária</h2>
+      <p class="section-desc fade-up">Produtos selecionados para auxiliar na prevenção, tratamento e manutenção da saúde dos pacientes, sempre com indicação e acompanhamento profissional.</p>
+
+      <div class="produtos-grid">
+        <div class="produto-card fade-up">
+          <div class="produto-icon"><i class="fa-solid fa-pills"></i></div>
+          <h3>Medicamentos</h3>
+          <p>Produtos para tratamento de diversas condições clínicas, prescritos de forma individualizada conforme avaliação veterinária e necessidade de cada paciente.</p>
+        </div>
+        <div class="produto-card fade-up">
+          <div class="produto-icon"><i class="fa-solid fa-flask"></i></div>
+          <h3>Suplementos</h3>
+          <p>Suplementos nutricionais indicados para suporte articular, dermatológico, imunológico e metabólico, contribuindo para a manutenção da saúde e qualidade de vida.</p>
+        </div>
+        <div class="produto-card fade-up">
+          <div class="produto-icon"><i class="fa-solid fa-soap"></i></div>
+          <h3>Shampoos terapêuticos</h3>
+          <p>Produtos dermatológicos específicos para controle de doenças de pele, como dermatites, infecções e alergias, com formulações especializadas para cada condição.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ DEPOIMENTOS ══════ -->
+  <section id="depoimentos" aria-labelledby="depo-titulo">
+    <div class="container">
+      <span class="section-tag fade-up">O que dizem nossos tutores</span>
+      <h2 id="depo-titulo" class="section-title fade-up">Avaliações de clientes</h2>
+      <p class="section-desc fade-up">A saúde e o bem-estar de cada paciente refletem o comprometimento e o carinho da nossa equipe em cada atendimento.</p>
+
+      <div class="depo-grid">
+        <div class="depo-card fade-up">
+          <span class="depo-quote">"</span>
+          <div class="depo-stars">★★★★★</div>
+          <p class="depo-text">"Atendimento excepcional! A doutora foi muito atenciosa com a minha gata, explicou tudo com clareza e o tratamento funcionou perfeitamente. Recomendo demais!"</p>
+          <div class="depo-autor">
+            <div class="depo-avatar">A</div>
+            <div class="depo-info">
+              <strong>Ana Luiza M.</strong>
+              <span>Tutora da Mimi 🐱</span>
+            </div>
+          </div>
+        </div>
+        <div class="depo-card fade-up">
+          <span class="depo-quote">"</span>
+          <div class="depo-stars">★★★★★</div>
+          <p class="depo-text">"Meu cachorro estava com sérios problemas na pele e após consulta na JSKvet o quadro melhorou muito. Profissionalismo e cuidado que fazem toda a diferença!"</p>
+          <div class="depo-autor">
+            <div class="depo-avatar">C</div>
+            <div class="depo-info">
+              <strong>Carlos Eduardo S.</strong>
+              <span>Tutor do Thor 🐶</span>
+            </div>
+          </div>
+        </div>
+        <div class="depo-card fade-up">
+          <span class="depo-quote">"</span>
+          <div class="depo-stars">★★★★★</div>
+          <p class="depo-text">"Fiz fisioterapia com meu cachorro após a cirurgia e a evolução foi incrível. A doutora tem um conhecimento enorme e trata cada paciente com muita dedicação."</p>
+          <div class="depo-autor">
+            <div class="depo-avatar">F</div>
+            <div class="depo-info">
+              <strong>Fernanda R.</strong>
+              <span>Tutora do Bob 🐶</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ CONTATO ══════ -->
+  <section id="contato" aria-labelledby="contato-titulo">
+    <div class="container">
+      <span class="section-tag fade-up">Fale conosco</span>
+      <h2 id="contato-titulo" class="section-title fade-up">Agende a consulta do seu animal</h2>
+      <p class="section-desc fade-up">Entre em contato pelo WhatsApp ou preencha o formulário. Atendemos com hora marcada para garantir toda a atenção ao seu pet.</p>
+
+      <div class="contato-grid">
+
+        <div class="fade-left">
+          <div class="contato-info">
+            <h3>Informações de contato</h3>
+
+            <div class="contato-item">
+              <div class="contato-item-icon"><i class="fa-solid fa-phone"></i></div>
+              <div class="contato-item-txt">
+                <strong>Telefone / WhatsApp</strong>
+                <a href="https://wa.me/5544999345721">(44) 99934-5721</a>
+              </div>
+            </div>
+
+            <div class="contato-item">
+              <div class="contato-item-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contato-item-txt">
+                <strong>E-mail</strong>
+                <a href="mailto:jskvett@gmail.com">jskvett@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contato-item">
+              <div class="contato-item-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="contato-item-txt">
+                <strong>Endereço</strong>
+                <span>Avenida Rio Branco, 534</span>
+              </div>
+            </div>
+
+            <div class="contato-item">
+              <div class="contato-item-icon"><i class="fa-solid fa-clock"></i></div>
+              <div class="contato-item-txt">
+                <strong>Horário de atendimento</strong>
+                <span>Segunda–Sexta: 8h às 18h<br>Sábado: 8h às 12h</span>
+              </div>
+            </div>
+
+            <div class="contato-social">
+              <a href="https://wa.me/5544999345721" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp" aria-label="WhatsApp da JSKvet">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+              <a href="https://www.instagram.com/jskvett/" target="_blank" rel="noopener noreferrer" class="social-btn instagram" aria-label="Instagram JSKvet">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="https://www.instagram.com/jessicafrancisconi.vet/" target="_blank" rel="noopener noreferrer" class="social-btn instagram" aria-label="Instagram Dra. Jéssica">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="mapa-wrap">
+            <iframe
+              src="https://maps.google.com/maps?q=Avenida+Rio+Branco+534&output=embed"
+              title="Localização JSKvet"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="fade-right">
+          <div class="contato-form-box">
+            <h3>Envie uma mensagem</h3>
+            <form id="contatoForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nome">Seu nome</label>
+                  <input type="text" id="nome" name="nome" placeholder="Nome completo" autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label for="telefone">WhatsApp</label>
+                  <input type="tel" id="telefone" name="telefone" placeholder="(44) 99999-9999" autocomplete="tel">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="animal">Qual o animal?</label>
+                <select id="animal" name="animal">
+                  <option value="">Selecione...</option>
+                  <option>Cão</option>
+                  <option>Gato</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="servico">Serviço de interesse</label>
+                <select id="servico" name="servico">
+                  <option value="">Selecione...</option>
+                  <option>Clínica geral</option>
+                  <option>Dermatologia veterinária</option>
+                  <option>Fisiatria veterinária</option>
+                  <option>Medicina integrativa e preventiva</option>
+                  <option>Dúvida sobre produtos</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Descreva brevemente o motivo da consulta..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-verde btn-form">
+                <i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ FOOTER ══════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="Logo JSKvet">
+          <p>Consultório veterinário especializado em clínica geral, dermatologia, fisiatria e medicina integrativa — cuidado completo para o seu animal de companhia.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/jskvett/" target="_blank" rel="noopener noreferrer" aria-label="Instagram JSKvet">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.instagram.com/jessicafrancisconi.vet/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Dra. Jéssica">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/5544999345721" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp JSKvet">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#sobre">Sobre nós</a></li>
+            <li><a href="#valores">Missão &amp; Valores</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Horários</h4>
+          <div class="footer-horario">
+            <strong>Segunda–Sexta</strong><br>
+            8h às 18h<br><br>
+            <strong>Sábado</strong><br>
+            8h às 12h<br><br>
+            <strong>Domingo</strong><br>
+            Fechado
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 JSKvet · CNPJ 63.987.437/0001-80</p>
+        <span>Avenida Rio Branco, 534</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MonteSite Badge -->
+  <div id="montesite-footer-badge"></div>
+  <script src="https://vaabpicspdbolvutnscp.supabase.co/functions/v1/get-footer-iframe"></script>
+
+  <!-- WhatsApp float -->
+  <a href="https://wa.me/5544999345721"
+     target="_blank" rel="noopener noreferrer"
+     class="whatsapp-float"
+     aria-label="Falar com JSKvet pelo WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Scroll top -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // ── HAMBURGER ──
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navMenu   = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    navMenu.querySelectorAll('.nav-mob-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── SCROLL TOP + PROGRESS + HEADER ──
+    const scrollBtn   = document.getElementById('scrollTopBtn');
+    const progressBar = document.getElementById('scrollProgress');
+    const header      = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total    = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (scrolled / total * 100) + '%';
+      scrollBtn.classList.toggle('visible', scrolled > 400);
+      header.classList.toggle('scrolled', scrolled > 60);
+    }, { passive: true });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ── ANIMAÇÕES ──
+    const animEls = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .fade-scale');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    animEls.forEach(el => observer.observe(el));
+
+    // ── CONTADOR ──
+    function animCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const dur    = 1400;
+      const step   = target / (dur / 16);
+      let cur      = 0;
+      const tick   = () => {
+        cur += step;
+        if (cur >= target) { el.textContent = target + suffix; return; }
+        el.textContent = Math.round(cur) + suffix;
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animCounter(e.target); counterObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+    // ── PARTÍCULAS ──
+    (function() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      function rand(a, b) { return Math.random() * (b - a) + a; }
+      function createP() { return { x: rand(0, W), y: rand(H * 0.2, H), r: rand(1, 2.5), alpha: rand(0.2, 0.55), vx: rand(-0.25, 0.25), vy: rand(-0.6, -0.15), life: 0, maxLife: rand(130, 280) }; }
+      for (let i = 0; i < 45; i++) { const p = createP(); p.life = rand(0, p.maxLife); particles.push(p); }
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach((p, i) => {
+          p.x += p.vx; p.y += p.vy; p.life++;
+          const prog = p.life / p.maxLife;
+          const a = p.alpha * (1 - Math.pow(prog * 2 - 1, 2));
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, a);
+          ctx.fillStyle = prog < 0.5 ? '#A8D06A' : '#FFFFFF';
+          ctx.shadowColor = '#A8D06A'; ctx.shadowBlur = 5;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+          if (p.life >= p.maxLife) particles[i] = createP();
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // ── FORM → WHATSAPP ──
+    document.getElementById('contatoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nome     = document.getElementById('nome').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const animal   = document.getElementById('animal').value;
+      const servico  = document.getElementById('servico').value;
+      const mensagem = document.getElementById('mensagem').value.trim();
+      if (!nome) { alert('Por favor, informe seu nome.'); return; }
+      let msg = `Olá, JSKvet! 👋\n\nMeu nome é *${nome}* e gostaria de agendar uma consulta.\n`;
+      if (telefone) msg += `📞 WhatsApp: ${telefone}\n`;
+      if (animal)   msg += `🐾 Animal: ${animal}\n`;
+      if (servico)  msg += `🩺 Serviço: ${servico}\n`;
+      if (mensagem) msg += `\n💬 ${mensagem}`;
+      window.open(`https://wa.me/5544999345721?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  </script>
+</body>
+</html>
