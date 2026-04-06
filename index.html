@@ -1136,6 +1136,22 @@
       animation: titleShimmer 1.8s ease forwards;
     }
 
+    /* Shimmer com cores claras para seções de fundo escuro */
+    #valores .section-title.shimmer-active {
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.92) 15%,
+        #A8D06A 35%,
+        #FFFFFF 50%,
+        #A8D06A 65%,
+        rgba(255,255,255,0.92) 85%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleShimmer 1.8s ease forwards;
+    }
+
     /* Glow dourado nos cards MVV ao hover */
     @keyframes mvvGlow {
       0%, 100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.1); }
