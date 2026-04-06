@@ -426,8 +426,8 @@
     }
 
     .hero-card-inner {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.6);
       border-radius: 12px;
       padding: 48px 36px;
       text-align: center;
@@ -438,14 +438,14 @@
     .hero-card-logo {
       width: 180px;
       margin: 0 auto 24px;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.12));
     }
 
     .hero-card-title {
       font-family: var(--ff-titulo);
       font-size: 1.1rem;
       font-weight: 700;
-      color: var(--branco);
+      color: var(--texto);
       letter-spacing: 1px;
       margin-bottom: 6px;
     }
@@ -454,7 +454,7 @@
       font-size: 0.72rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #A8D06A;
+      color: var(--verde);
       margin-bottom: 28px;
     }
 
@@ -472,9 +472,9 @@
       justify-content: center;
     }
     .hero-tag {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.85);
+      background: var(--creme-2);
+      border: 1px solid var(--cinza-borda);
+      color: var(--texto);
       padding: 5px 14px;
       border-radius: 100px;
       font-size: 0.75rem;
@@ -955,6 +955,161 @@
     }
     .mapa-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
 
+    /* ── DICAS DE CUIDADOS ── */
+    #dicas {
+      background: var(--creme-2);
+    }
+
+    .dicas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .dica-card {
+      background: var(--branco);
+      border: 1px solid var(--cinza-borda);
+      border-radius: 10px;
+      padding: 32px 24px;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .dica-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--verde), var(--marrom));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .dica-card:hover {
+      box-shadow: 0 10px 36px rgba(74,107,42,0.1);
+      transform: translateY(-4px);
+    }
+    .dica-card:hover::after { transform: scaleX(1); }
+
+    .dica-emoji {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+      line-height: 1;
+    }
+    .dica-card h3 {
+      font-size: 1.1rem;
+      color: var(--texto);
+      margin-bottom: 10px;
+    }
+    .dica-card p {
+      color: var(--texto-leve);
+      font-size: 0.87rem;
+      line-height: 1.75;
+    }
+    .dica-tag {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--creme-2);
+      color: var(--verde);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(74,107,42,0.2);
+    }
+
+    /* ── FAQ ── */
+    #faq {
+      background: var(--creme);
+    }
+
+    .faq-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--cinza-borda);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .faq-item.open {
+      box-shadow: 0 4px 20px rgba(107,51,34,0.08);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--branco);
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--ff-corpo);
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--texto);
+      transition: color 0.2s, background 0.2s;
+    }
+    .faq-question:hover { color: var(--verde); }
+    .faq-item.open .faq-question { color: var(--verde); background: #f8fbf4; }
+
+    .faq-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--creme-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--verde);
+      flex-shrink: 0;
+      transition: background 0.25s, transform 0.35s;
+    }
+    .faq-item.open .faq-icon {
+      background: var(--verde);
+      color: var(--branco);
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      background: #f8fbf4;
+    }
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      color: var(--texto-leve);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      border-top: 1px solid rgba(74,107,42,0.1);
+      padding-top: 16px;
+    }
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    .faq-cta {
+      text-align: center;
+      margin-top: 48px;
+      padding: 40px 32px;
+      background: linear-gradient(135deg, var(--verde) 0%, var(--marrom) 100%);
+      border-radius: 10px;
+      color: var(--branco);
+    }
+    .faq-cta p {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--texto);
@@ -1264,6 +1419,7 @@
       .servicos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .produtos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .depo-grid     { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .dicas-grid    { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
       .contato-grid  { grid-template-columns: 1fr; gap: 40px; }
       .footer-inner  { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -1289,6 +1445,7 @@
       .servicos-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .produtos-grid { grid-template-columns: repeat(2, 1fr); }
       .depo-grid     { grid-template-columns: 1fr; gap: 16px; }
+      .dicas-grid    { grid-template-columns: repeat(2, 1fr); gap: 14px; }
 
       .footer-inner  { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
@@ -1317,6 +1474,9 @@
 
       .servicos-grid { grid-template-columns: 1fr; gap: 12px; }
       .produtos-grid { grid-template-columns: 1fr; }
+      .dicas-grid    { grid-template-columns: 1fr; gap: 12px; }
+      .faq-question  { font-size: 0.93rem; padding: 18px 18px; }
+      .faq-answer-inner { padding: 14px 18px 18px; }
       .depo-grid     { gap: 12px; }
 
       .section-desc  { margin-bottom: 32px; }
@@ -1422,6 +1582,8 @@
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#produtos">Produtos</a></li>
           <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#dicas">Dicas</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="#contato" class="nav-cta">Agendar consulta</a></li>
         </ul>
       </nav>
@@ -1443,6 +1605,8 @@
       <li><a href="#servicos"     class="nav-mob-link">Serviços</a></li>
       <li><a href="#produtos"     class="nav-mob-link">Produtos</a></li>
       <li><a href="#depoimentos"  class="nav-mob-link">Depoimentos</a></li>
+      <li><a href="#dicas"        class="nav-mob-link">Dicas de cuidados</a></li>
+      <li><a href="#faq"          class="nav-mob-link">Perguntas frequentes</a></li>
       <li><a href="#contato"      class="nav-mob-link">
         <i class="fa-brands fa-whatsapp"></i> Agendar consulta
       </a></li>
@@ -1708,6 +1872,156 @@
     </div>
   </section>
 
+  <!-- ══════ DICAS DE CUIDADOS ══════ -->
+  <section id="dicas" aria-labelledby="dicas-titulo">
+    <div class="container">
+      <span class="section-tag fade-up">Para o tutor</span>
+      <h2 id="dicas-titulo" class="section-title fade-up">Dicas de cuidados com seu pet</h2>
+      <p class="section-desc fade-up">Pequenos hábitos fazem grande diferença na saúde e qualidade de vida do seu animal. Confira orientações práticas da JSKvet.</p>
+
+      <div class="dicas-grid">
+        <div class="dica-card fade-up">
+          <span class="dica-emoji">🩺</span>
+          <h3>Consultas preventivas regulares</h3>
+          <p>Leve seu animal ao veterinário pelo menos uma vez ao ano, mesmo sem sintomas aparentes. Exames de rotina detectam problemas antes que se tornem graves e garantem a saúde a longo prazo.</p>
+          <span class="dica-tag">Prevenção</span>
+        </div>
+        <div class="dica-card fade-up">
+          <span class="dica-emoji">💉</span>
+          <h3>Mantenha a vacinação em dia</h3>
+          <p>As vacinas protegem seu animal contra doenças graves e contagiosas. Converse com o veterinário sobre o calendário vacinal adequado para a espécie, idade e estilo de vida do seu pet.</p>
+          <span class="dica-tag">Vacinação</span>
+        </div>
+        <div class="dica-card fade-up">
+          <span class="dica-emoji">🪮</span>
+          <h3>Cuidados com a pele e pelo</h3>
+          <p>Escove o pelo regularmente, observe sinais de coceira, vermelhidão ou queda excessiva de pelo. Banhos com produtos adequados e consulta dermatológica são essenciais para manter a saúde da pele.</p>
+          <span class="dica-tag">Dermatologia</span>
+        </div>
+        <div class="dica-card fade-up">
+          <span class="dica-emoji">🏃</span>
+          <h3>Exercício físico adequado</h3>
+          <p>Cada raça e espécie tem necessidades específicas de atividade física. O exercício regular previne obesidade, problemas articulares e contribui para o equilíbrio emocional do animal.</p>
+          <span class="dica-tag">Bem-estar</span>
+        </div>
+        <div class="dica-card fade-up">
+          <span class="dica-emoji">🥗</span>
+          <h3>Alimentação equilibrada</h3>
+          <p>Ofereça uma dieta adequada para a espécie, porte e fase de vida do seu animal. Evite alimentos humanos que possam ser tóxicos e consulte o veterinário sobre suplementação quando necessário.</p>
+          <span class="dica-tag">Nutrição</span>
+        </div>
+        <div class="dica-card fade-up">
+          <span class="dica-emoji">🦷</span>
+          <h3>Saúde bucal não pode ser ignorada</h3>
+          <p>A higiene bucal evita tártaro, gengivite e infecções que podem comprometer órgãos vitais. Use escovas e pastas específicas para animais e realize limpezas profissionais periodicamente.</p>
+          <span class="dica-tag">Higiene</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ FAQ ══════ -->
+  <section id="faq" aria-labelledby="faq-titulo">
+    <div class="container">
+      <span class="section-tag fade-up">Tire suas dúvidas</span>
+      <h2 id="faq-titulo" class="section-title fade-up">Perguntas frequentes</h2>
+      <p class="section-desc fade-up">Reunimos as dúvidas mais comuns dos tutores para facilitar o seu dia a dia e o cuidado com o seu animal.</p>
+
+      <div class="faq-wrap">
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            Como faço para agendar uma consulta na JSKvet?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              O agendamento é feito diretamente pelo WhatsApp <strong>(44) 99934-5721</strong> ou pelo formulário de contato no site. Atendemos com hora marcada para garantir toda a atenção e o tempo necessário para cada paciente.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            Quais espécies de animais são atendidas?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              A JSKvet atende principalmente <strong>cães e gatos</strong> (pequenos animais). Para outras espécies, entre em contato previamente para verificar disponibilidade de atendimento.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            O que é fisiatria veterinária e quando é indicada?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              A fisiatria veterinária é a especialidade focada em <strong>reabilitação funcional, controle da dor e recuperação de mobilidade</strong>. É indicada para animais com problemas musculoesqueléticos, neurológicos, pós-operatórios, doenças degenerativas (como artrose) ou que precisam recuperar qualidade de vida após lesões.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            Meu animal apresenta coceira intensa. O que pode ser?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              Coceira intensa pode ter diversas origens: <strong>alergias alimentares, alergias ambientais, parasitas, infecções fúngicas ou bacterianas</strong>. A dermatologia veterinária é especializada nesse diagnóstico. Agende uma consulta para identificar a causa correta e iniciar o tratamento adequado o quanto antes.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            Com que frequência devo levar meu animal ao veterinário?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              Para animais jovens e adultos saudáveis, recomenda-se pelo menos <strong>uma consulta por ano</strong>. Animais idosos ou com condições crônicas devem ser avaliados com maior frequência — em geral a cada 3 a 6 meses. A medicina preventiva é sempre mais eficaz e econômica que o tratamento tardio.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            O que é medicina integrativa e preventiva para animais?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              É uma abordagem que combina a medicina convencional com <strong>técnicas complementares</strong> focadas no equilíbrio do organismo como um todo. O objetivo é prevenir doenças, reduzir o uso de medicamentos e promover bem-estar físico e emocional de forma sustentável ao longo da vida do animal.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up">
+          <button class="faq-question" aria-expanded="false">
+            Quais são os horários de atendimento?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              Atendemos <strong>segunda a sexta das 8h às 18h</strong> e <strong>sábado das 8h às 12h</strong>. O atendimento é sempre com hora marcada. Para agendar, entre em contato pelo WhatsApp <strong>(44) 99934-5721</strong>.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-cta fade-up">
+          <p>Ainda tem dúvidas? Fale diretamente com a JSKvet pelo WhatsApp!</p>
+          <a href="https://wa.me/5544999345721" target="_blank" rel="noopener noreferrer" class="btn btn-outline-branco">
+            <i class="fa-brands fa-whatsapp"></i> Enviar mensagem
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════ CONTATO ══════ -->
   <section id="contato" aria-labelledby="contato-titulo">
     <div class="container">
@@ -1856,6 +2170,8 @@
             <li><a href="#servicos">Serviços</a></li>
             <li><a href="#produtos">Produtos</a></li>
             <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#dicas">Dicas de cuidados</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#contato">Contato</a></li>
           </ul>
         </div>
@@ -1990,6 +2306,24 @@
       }
       draw();
     })();
+
+    // ── ACCORDION FAQ ──
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item    = btn.closest('.faq-item');
+        const isOpen  = item.classList.contains('open');
+        // fecha todos
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        // abre o clicado (se estava fechado)
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
 
     // ── TYPEWRITER NO HERO H2 ──
     const twEl = document.querySelector('#hero h2');
