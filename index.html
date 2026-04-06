@@ -1111,6 +1111,94 @@
     }
     .servico-card:hover .servico-icon { animation: iconBounce 0.5s ease forwards; }
 
+    /* ── EFEITOS EXTRAS ── */
+
+    /* Pulse glow no WhatsApp float */
+    @keyframes wpPulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+      50%       { box-shadow: 0 4px 40px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.08); }
+    }
+    .whatsapp-float { animation: wpPulse 2.4s ease-in-out infinite; }
+
+    /* Shimmer sweep nos títulos das seções ao entrar na tela */
+    @keyframes titleShimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    .section-title.shimmer-active {
+      background: linear-gradient(90deg,
+        var(--texto) 20%, var(--verde) 40%, var(--marrom-claro) 50%, var(--verde) 60%, var(--texto) 80%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleShimmer 1.8s ease forwards;
+    }
+
+    /* Glow dourado nos cards MVV ao hover */
+    @keyframes mvvGlow {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.1); }
+      50%       { box-shadow: 0 0 24px rgba(168,208,106,0.25), 0 0 0 1px rgba(168,208,106,0.3); }
+    }
+    .mvv-card:hover { animation: mvvGlow 1.6s ease-in-out infinite; }
+
+    /* Shine sweep nos cards de serviço e produto ao hover */
+    .servico-card,
+    .produto-card { overflow: hidden; }
+    .servico-card::before,
+    .produto-card::before {
+      content: '';
+      position: absolute;
+      top: -100%; left: -75%;
+      width: 50%; height: 300%;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255,255,255,0.25) 50%,
+        transparent 70%
+      );
+      transform: skewX(-15deg);
+      transition: none;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .servico-card:hover::before,
+    .produto-card:hover::before {
+      transition: left 0.55s ease;
+      left: 130%;
+    }
+
+    /* Tilt 3D nos cards de depoimento ao hover */
+    .depo-card { transform-style: preserve-3d; }
+
+    /* Stagger MVV */
+    .mvv-grid .mvv-card:nth-child(1) { transition-delay: 0.05s; }
+    .mvv-grid .mvv-card:nth-child(2) { transition-delay: 0.18s; }
+    .mvv-grid .mvv-card:nth-child(3) { transition-delay: 0.31s; }
+
+    /* Pop nos diferenciais do Sobre */
+    @keyframes difPop {
+      0%   { opacity: 0; transform: scale(0.7) translateY(10px); }
+      70%  { transform: scale(1.08) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .sobre-dif { opacity: 0; }
+    .sobre-dif.dif-visible { animation: difPop 0.45s ease forwards; }
+
+    /* Typewriter cursor no hero */
+    .hero-text h2::after {
+      content: '|';
+      color: #A8D06A;
+      opacity: 1;
+      animation: blinkCursor 0.75s step-end infinite;
+    }
+    .hero-text h2.tw-done::after { display: none; }
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
     /* ── RESPONSIVIDADE ── */
     @media (min-width: 1800px) { .container { max-width: 1500px; } }
 
@@ -1233,7 +1321,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       .fade-up, .fade-left, .fade-right, .fade-scale { transition: none; opacity: 1; transform: none; }
-      .marquee-track, .hero-card { animation: none; }
+      .marquee-track, .hero-card, .whatsapp-float, .mvv-card { animation: none; }
+      .hero-text h2::after { display: none; }
+      .section-title.shimmer-active { background: none; -webkit-text-fill-color: inherit; animation: none; }
+      .sobre-dif { opacity: 1; animation: none; }
     }
   </style>
 </head>
@@ -1824,6 +1915,60 @@
       }
       draw();
     })();
+
+    // ── TYPEWRITER NO HERO H2 ──
+    const twEl = document.querySelector('#hero h2');
+    if (twEl) {
+      const twText = twEl.textContent;
+      twEl.textContent = '';
+      let ti = 0;
+      function typeChar() {
+        if (ti < twText.length) {
+          twEl.textContent += twText[ti++];
+          setTimeout(typeChar, ti < 10 ? 50 : 16);
+        } else {
+          twEl.classList.add('tw-done');
+        }
+      }
+      setTimeout(typeChar, 800);
+    }
+
+    // ── SHIMMER NOS TÍTULOS DE SEÇÃO AO ENTRAR ──
+    const titleObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('shimmer-active');
+          titleObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.section-title').forEach(el => titleObs.observe(el));
+
+    // ── TILT 3D NOS CARDS DE SERVIÇO E PRODUTO ──
+    document.querySelectorAll('.servico-card, .produto-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // ── POP NOS DIFERENCIAIS DO SOBRE ──
+    const difObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const difs = entry.target.querySelectorAll('.sobre-dif');
+          difs.forEach((d, i) => {
+            setTimeout(() => d.classList.add('dif-visible'), i * 90);
+          });
+          difObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const difGrid = document.querySelector('.sobre-diferenciais');
+    if (difGrid) difObs.observe(difGrid);
 
     // ── FORM → WHATSAPP ──
     document.getElementById('contatoForm').addEventListener('submit', function(e) {
