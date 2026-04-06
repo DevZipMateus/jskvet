@@ -1562,43 +1562,6 @@
       .sobre-dif { opacity: 1; animation: none; }
     }
 
-    /* ── CURSOR PERSONALIZADO ── */
-    @media (pointer: fine) {
-      body, a, button, [role="button"], input, textarea, select, label { cursor: none !important; }
-
-      .cursor-trail {
-        position: fixed;
-        top: 0; left: 0;
-        width: 42px;
-        height: 42px;
-        border: 2px solid rgba(107,51,34,0.45);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9998;
-        transform: translate(-50%, -50%);
-        transition: width 0.3s ease, height 0.3s ease,
-                    background 0.3s ease, border-color 0.3s ease;
-        will-change: left, top;
-      }
-      .cursor-dot {
-        position: fixed;
-        top: 0; left: 0;
-        width: 7px;
-        height: 7px;
-        background: var(--marrom);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        will-change: left, top;
-      }
-      .cursor-trail.hover-active {
-        width: 58px;
-        height: 58px;
-        background: rgba(107,51,34,0.09);
-        border-color: var(--marrom);
-      }
-    }
 
     /* ── RIPPLE NOS BOTÕES ── */
     .ripple-wave {
@@ -2462,33 +2425,6 @@
     }, { threshold: 0.3 });
     const difGrid = document.querySelector('.sobre-diferenciais');
     if (difGrid) difObs.observe(difGrid);
-
-    // ── CURSOR PERSONALIZADO (desktop) ──
-    if (window.matchMedia('(pointer: fine)').matches) {
-      const trail = document.createElement('div');
-      const dot   = document.createElement('div');
-      trail.className = 'cursor-trail';
-      dot.className   = 'cursor-dot';
-      document.body.appendChild(trail);
-      document.body.appendChild(dot);
-
-      let mx = 0, my = 0, tx = -100, ty = -100;
-      document.addEventListener('mousemove', e => {
-        mx = e.clientX; my = e.clientY;
-        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-      });
-      (function animTrail() {
-        tx += (mx - tx) * 0.13;
-        ty += (my - ty) * 0.13;
-        trail.style.left = tx + 'px'; trail.style.top = ty + 'px';
-        requestAnimationFrame(animTrail);
-      })();
-
-      document.querySelectorAll('a, button, [role="button"], input, textarea, select').forEach(el => {
-        el.addEventListener('mouseenter', () => trail.classList.add('hover-active'));
-        el.addEventListener('mouseleave', () => trail.classList.remove('hover-active'));
-      });
-    }
 
     // ── RIPPLE NOS BOTÕES ──
     document.querySelectorAll('.btn, .nav-cta, .faq-question').forEach(btn => {
