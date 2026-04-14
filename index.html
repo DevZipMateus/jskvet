@@ -509,6 +509,84 @@
     }
     .marquee-sep { color: rgba(255,255,255,0.4); margin-left: 32px; }
 
+    /* ── DRA. JÉSSICA ── */
+    #dra-jessica {
+      background: var(--branco);
+      position: relative;
+    }
+    .dra-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .dra-foto-wrap {
+      position: relative;
+    }
+    .dra-foto-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 8px;
+      box-shadow: 0 12px 40px rgba(107,51,34,0.15);
+    }
+    .dra-foto-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -12px; right: -12px;
+      width: 100%; height: 100%;
+      border: 3px solid var(--verde);
+      border-radius: 8px;
+      z-index: -1;
+    }
+    .dra-content .section-tag { margin: 0 0 14px; }
+    .dra-content .section-title {
+      text-align: left;
+      color: var(--texto);
+      margin-bottom: 10px;
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    }
+    .dra-content .dra-subtitulo {
+      font-family: var(--ff-corpo);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--verde);
+      margin-bottom: 24px;
+    }
+    .dra-content p {
+      color: var(--texto-leve);
+      font-size: 0.95rem;
+      line-height: 1.82;
+      margin-bottom: 14px;
+    }
+    .dra-content p:last-of-type { margin-bottom: 0; }
+    .dra-content p strong { color: var(--texto); font-weight: 700; }
+
+    .dra-destaques {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .dra-destaque {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--creme);
+      border: 1px solid var(--cinza-borda);
+      color: var(--texto);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 24px;
+      transition: all 0.25s;
+    }
+    .dra-destaque i { color: var(--verde); font-size: 0.75rem; }
+    .dra-destaque:hover { background: rgba(74,107,42,0.1); border-color: rgba(74,107,42,0.4); transform: translateY(-2px); }
+
+    .dra-cta-wrap { margin-top: 32px; }
+
     /* ── SOBRE ── */
     #sobre {
       background:
@@ -1386,6 +1464,7 @@
     @media (max-width: 1280px) {
       .hero-inner  { gap: 48px; }
       .sobre-grid  { gap: 52px; }
+      .dra-grid { gap: 48px; }
       .servicos-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1410,6 +1489,16 @@
       .sobre-text .section-tag   { margin: 0 auto 14px; }
       .sobre-text .section-title { text-align: center; }
       .sobre-text p              { text-align: center; }
+
+      .dra-grid { grid-template-columns: 1fr; gap: 40px; }
+      .dra-foto-wrap { max-width: 380px; margin: 0 auto; }
+      .dra-foto-wrap img { height: 440px; }
+      .dra-content .section-tag { margin: 0 auto 14px; }
+      .dra-content .section-title { text-align: center; }
+      .dra-content .dra-subtitulo { text-align: center; }
+      .dra-content p { text-align: center; }
+      .dra-destaques { justify-content: center; }
+      .dra-cta-wrap { text-align: center; }
       .sobre-diferenciais        { justify-content: center; }
       .sobre-text .btn           { display: block; width: fit-content; margin: 0 auto; }
 
@@ -1439,6 +1528,8 @@
       .sobre-diferenciais { grid-template-columns: 1fr; }
       .sobre-badge        { width: 76px; height: 76px; bottom: -14px; right: -14px; }
       .sobre-box-inner .brand-nome { font-size: 2rem; }
+      .dra-foto-wrap img  { height: 380px; }
+      .dra-foto-wrap::after { bottom: -8px; right: -8px; }
 
       /* MVV colapsa para 1 col apenas no portrait */
       .mvv-grid      { grid-template-columns: 1fr; gap: 14px; }
@@ -1496,6 +1587,11 @@
 
       .sobre-box { padding: 36px 20px; }
       .sobre-box-inner .brand-nome { font-size: 1.65rem; }
+
+      .dra-foto-wrap { max-width: 100%; }
+      .dra-foto-wrap img { height: 340px; }
+      .dra-foto-wrap::after { display: none; }
+      .dra-content .btn { width: 100%; justify-content: center; }
 
       .mvv-card      { padding: 32px 20px; }
       .servico-card  { padding: 28px 20px; }
@@ -1721,6 +1817,48 @@
       <span class="marquee-item">Diagnóstico Preciso <span class="marquee-sep">✦</span></span>
     </div>
   </div>
+
+  <!-- ══════ DRA. JÉSSICA ══════ -->
+  <section id="dra-jessica">
+    <div class="container">
+      <div class="dra-grid">
+
+        <div class="dra-foto-wrap fade-left">
+          <img src="images/dra-jessica.jpg" alt="Dra. Jéssica Borges — Médica Veterinária JSKvet" loading="lazy">
+        </div>
+
+        <div class="dra-content fade-right">
+          <span class="section-tag tag-marrom">Quem cuida do seu pet</span>
+          <h2 class="section-title">Dra. Jéssica</h2>
+          <p class="dra-subtitulo">Médica Veterinária — CRMV/PR</p>
+
+          <p>Formada há seis anos, a <strong>Dra. Jéssica</strong> iniciou sua trajetória profissional atuando em clínica, onde desenvolveu experiência prática e um olhar clínico atento às necessidades individuais de cada paciente.</p>
+
+          <p>Durante esse período, buscou especialização em áreas fundamentais para a saúde e qualidade de vida dos animais, como a <strong>fisioterapia</strong> e a <strong>medicina preventiva</strong>, consolidando uma abordagem voltada não apenas ao tratamento, mas principalmente à prevenção e ao bem-estar.</p>
+
+          <p>Com o objetivo de oferecer um atendimento mais próximo, individualizado e humanizado, decidiu dar um novo passo em sua carreira ao abrir seu próprio consultório. Atualmente, atua de forma independente, dedicando-se integralmente a cada paciente e tutor.</p>
+
+          <p>Em constante atualização, está em processo de <strong>especialização em dermatologia veterinária</strong>, ampliando seus conhecimentos para proporcionar diagnósticos mais precisos e tratamentos eficazes.</p>
+
+          <div class="dra-destaques">
+            <span class="dra-destaque"><i class="fa-solid fa-stethoscope"></i> Clínica Geral</span>
+            <span class="dra-destaque"><i class="fa-solid fa-hand-holding-medical"></i> Fisiatria</span>
+            <span class="dra-destaque"><i class="fa-solid fa-microscope"></i> Dermatologia</span>
+            <span class="dra-destaque"><i class="fa-solid fa-leaf"></i> Medicina Integrativa</span>
+            <span class="dra-destaque"><i class="fa-solid fa-shield-heart"></i> Medicina Preventiva</span>
+            <span class="dra-destaque"><i class="fa-solid fa-heart-pulse"></i> Reabilitação Animal</span>
+          </div>
+
+          <div class="dra-cta-wrap">
+            <a href="https://wa.me/5544999345721" target="_blank" rel="noopener noreferrer" class="btn btn-marrom">
+              <i class="fa-brands fa-whatsapp"></i> Agendar consulta com a Dra. Jéssica
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- ══════ SOBRE ══════ -->
   <section id="sobre" aria-labelledby="sobre-titulo">
