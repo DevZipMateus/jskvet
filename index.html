@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>JSKvet — Consultório Veterinário e Reabilitação Animal</title>
   <meta name="description" content="JSKvet — Clínica veterinária especializada em clínica geral, dermatologia, fisiatria e medicina integrativa. Cuidado completo, diagnóstico preciso e compromisso com a saúde animal.">
   <meta name="robots" content="index, follow">
@@ -36,6 +36,19 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── APPLE / iOS BASE ── */
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
 
     :root {
       --marrom:        #6B3322;
@@ -291,6 +304,7 @@
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
+      min-height: 100svh; /* fix iOS Safari 100vh */
       padding-top: var(--header-h);
       background:
         linear-gradient(135deg, rgba(78,34,24,0.88) 0%, rgba(54,78,30,0.72) 100%),
@@ -1011,6 +1025,16 @@
       background: var(--creme);
       transition: border-color 0.2s, box-shadow 0.2s;
       outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    /* iOS: evita zoom automático ao focar em campos pequenos */
+    @media (hover: none) and (pointer: coarse) {
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        font-size: 1rem;
+      }
     }
     .form-group input:focus,
     .form-group select:focus,
@@ -1551,11 +1575,11 @@
       section    { padding: 60px 0; }
       .container { padding: 0 1.25rem; }
 
-      .hero-text h1   { font-size: clamp(2.2rem, 9vw, 3rem); }
-      .hero-stats     { flex-direction: column; gap: 16px; border-top: none; padding-top: 22px; }
-      .hero-stat      { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 0 14px 0 !important; text-align: center; }
+      .hero-text h1    { font-size: clamp(2.2rem, 9vw, 3rem); }
+      .hero-stats      { flex-direction: column; gap: 16px; border-top: none; padding-top: 22px; }
+      .hero-stat       { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 0 14px 0 !important; text-align: center; }
       .hero-stat:last-child { border-bottom: none; padding-bottom: 0 !important; }
-      .hero-card      { max-width: 100%; }
+      .hero-card       { max-width: 100%; }
       .hero-card-inner { padding: 32px 24px; }
       .hero-card-logo  { width: 140px; }
 
@@ -1573,7 +1597,7 @@
       .section-desc  { margin-bottom: 32px; }
     }
 
-    /* Mobile padrão */
+    /* iPhone SE / mobile padrão */
     @media (max-width: 480px) {
       section    { padding: 52px 0; }
       .container { padding: 0 1rem; }
@@ -1581,7 +1605,7 @@
       .hero-text h1   { font-size: 2rem; letter-spacing: -0.5px; }
       .hero-slogan    { font-size: 0.92rem; }
       .hero-btns      { flex-direction: column; align-items: stretch; }
-      .hero-btns .btn { width: 100%; justify-content: center; }
+      .hero-btns .btn { width: 100%; justify-content: center; min-height: 48px; } /* mínimo 48px para área de toque Apple */
 
       .logo-wrap img  { height: 50px; }
 
@@ -1589,9 +1613,9 @@
       .sobre-box-inner .brand-nome { font-size: 1.65rem; }
 
       .dra-foto-wrap { max-width: 100%; }
-      .dra-foto-wrap img { height: 340px; }
+      .dra-foto-wrap img { height: 320px; }
       .dra-foto-wrap::after { display: none; }
-      .dra-content .btn { width: 100%; justify-content: center; }
+      .dra-content .btn { width: 100%; justify-content: center; min-height: 48px; }
 
       .mvv-card      { padding: 32px 20px; }
       .servico-card  { padding: 28px 20px; }
@@ -1604,19 +1628,30 @@
 
       .footer-brand img { height: 60px; }
 
+      /* botões flutuantes sobem um pouco em mobile para não cobrir conteúdo */
       .whatsapp-float { bottom: 20px; right: 20px; width: 52px; height: 52px; font-size: 1.45rem; }
       .scroll-top     { bottom: 20px; left: 20px; }
 
       .section-desc   { margin-bottom: 28px; font-size: 0.93rem; }
+
+      /* nav link area de toque mínima */
+      #navMenu ul li a { min-height: 48px; display: flex; align-items: center; }
     }
 
-    /* Mobile pequeno */
+    /* iPhone SE 1a geração / mobile pequeno */
+    @media (max-width: 375px) {
+      .hero-text h1  { font-size: 1.9rem; }
+      .hero-btns .btn { font-size: 0.9rem; }
+      .dra-foto-wrap img { height: 290px; }
+    }
+
+    /* Mobile muito pequeno — 360px Android */
     @media (max-width: 360px) {
       .container  { padding: 0 0.875rem; }
       section     { padding: 44px 0; }
 
-      .logo-wrap img  { height: 44px; }
-      .hero-text h1   { font-size: 1.8rem; }
+      .logo-wrap img   { height: 44px; }
+      .hero-text h1    { font-size: 1.8rem; }
       .hero-card-inner { padding: 26px 16px; }
       .hero-card-logo  { width: 120px; }
       .hero-card-title { font-size: 0.95rem; }
@@ -1634,7 +1669,7 @@
       .footer-brand img { height: 54px; }
     }
 
-    /* Mobile muito pequeno */
+    /* Mobile muito pequeno — 320px (iPhone 4/5) */
     @media (max-width: 320px) {
       .container      { padding: 0 0.75rem; }
       .hero-text h1   { font-size: 1.6rem; }
@@ -1643,11 +1678,25 @@
       .mvv-card h3, .servico-card h3 { font-size: 1rem; }
     }
 
-    /* Landscape mobile */
+    /* Landscape mobile — iPhone em paisagem */
     @media (max-height: 500px) and (orientation: landscape) {
-      #hero { min-height: auto; padding: calc(var(--header-h) + 32px) 0 32px; }
+      #hero { min-height: auto; padding: calc(var(--header-h) + 28px) 0 28px; }
       .hero-stats  { display: none; }
       .hero-slogan { display: none; }
+      section { padding: 40px 0; }
+    }
+
+    /* iPad / tablet portrait — 768px específico */
+    @media (min-width: 601px) and (max-width: 768px) {
+      .dra-grid { grid-template-columns: 1fr; }
+      .dra-foto-wrap { max-width: 420px; margin: 0 auto; }
+      .dra-foto-wrap img { height: 420px; }
+      .dra-content .section-tag  { margin: 0 auto 14px; }
+      .dra-content .section-title { text-align: center; }
+      .dra-content .dra-subtitulo { text-align: center; }
+      .dra-content p  { text-align: center; }
+      .dra-destaques  { justify-content: center; }
+      .dra-cta-wrap   { text-align: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1658,6 +1707,57 @@
       .sobre-dif { opacity: 1; animation: none; }
     }
 
+
+    /* ══════════════════════════════════════
+       APPLE — SAFE AREA (notch + home bar)
+    ══════════════════════════════════════ */
+    @supports (padding-top: env(safe-area-inset-top)) {
+      #header {
+        padding-top: env(safe-area-inset-top);
+        height: calc(var(--header-h) + env(safe-area-inset-top));
+      }
+      .header-inner {
+        height: var(--header-h);
+      }
+      #navMenu {
+        top: calc(var(--header-h) + env(safe-area-inset-top));
+      }
+      #hero {
+        padding-top: calc(var(--header-h) + env(safe-area-inset-top));
+      }
+      .whatsapp-float {
+        bottom: calc(28px + env(safe-area-inset-bottom));
+      }
+      .scroll-top {
+        bottom: calc(28px + env(safe-area-inset-bottom));
+      }
+      footer .container {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+
+    /* iOS landscape: ajusta laterais para áreas cortadas */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      @supports (padding-left: env(safe-area-inset-left)) {
+        .container {
+          padding-left:  max(24px, env(safe-area-inset-left));
+          padding-right: max(24px, env(safe-area-inset-right));
+        }
+        .whatsapp-float {
+          right: calc(28px + env(safe-area-inset-right));
+        }
+        .scroll-top {
+          left: calc(28px + env(safe-area-inset-left));
+        }
+      }
+    }
+
+    /* iOS: desativa parallax em todos os dispositivos touch */
+    @supports (-webkit-touch-callout: none) {
+      #hero, #sobre, #valores, #contato {
+        background-attachment: scroll, scroll;
+      }
+    }
 
     /* ── RIPPLE NOS BOTÕES ── */
     .ripple-wave {
