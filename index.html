@@ -68,7 +68,11 @@
       --header-h:      80px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
 
     body {
       font-family: var(--ff-corpo);
@@ -76,6 +80,7 @@
       background: var(--creme);
       line-height: 1.7;
       overflow-x: hidden;
+      max-width: 100%;
     }
 
     img { max-width: 100%; display: block; }
@@ -198,9 +203,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      background: rgba(251,248,245,0.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: var(--creme);
       height: var(--header-h);
       border-bottom: 1px solid var(--cinza-borda);
       transition: box-shadow 0.3s, border-color 0.3s;
@@ -1501,10 +1504,11 @@
       .hamburger { display: flex; }
 
       .hero-inner         { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-      .hero-eyebrow       { justify-content: center; }
+      .hero-eyebrow       { display: flex; justify-content: center; flex-wrap: wrap; }
       .hero-btns          { justify-content: center; }
       .hero-visual        { order: -1; }
-      .hero-text h2       { max-width: 100%; }
+      .hero-text h2       { max-width: 100%; text-align: center; }
+      .hero-slogan        { text-align: center; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
       .hero-card          { max-width: 420px; margin: 0 auto; }
       .hero-text h1       { font-size: clamp(2.6rem, 7vw, 4rem); }
 
@@ -1576,6 +1580,8 @@
       .container { padding: 0 1.25rem; }
 
       .hero-text h1    { font-size: clamp(2.2rem, 9vw, 3rem); }
+      .hero-eyebrow    { letter-spacing: 1.5px; gap: 6px; font-size: 0.68rem; }
+      .hero-eyebrow::before, .hero-eyebrow::after { display: none; }
       .hero-stats      { flex-direction: column; gap: 16px; border-top: none; padding-top: 22px; }
       .hero-stat       { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 0 14px 0 !important; text-align: center; }
       .hero-stat:last-child { border-bottom: none; padding-bottom: 0 !important; }
@@ -1603,7 +1609,8 @@
       .container { padding: 0 1rem; }
 
       .hero-text h1   { font-size: 2rem; letter-spacing: -0.5px; }
-      .hero-slogan    { font-size: 0.92rem; }
+      .hero-slogan    { font-size: 0.85rem; padding: 0 4px; }
+      .hero-text h2   { font-size: 0.95rem; padding: 0 4px; }
       .hero-btns      { flex-direction: column; align-items: stretch; }
       .hero-btns .btn { width: 100%; justify-content: center; min-height: 48px; } /* mínimo 48px para área de toque Apple */
 
